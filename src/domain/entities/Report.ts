@@ -1,5 +1,4 @@
 import ApplicationError from "../errors/ApplicationError"
-import Location from "./Location"
 
 export type Media = {url: string}
 
@@ -9,14 +8,14 @@ export default class Report {
         readonly title: string, 
         readonly description: string,
         readonly signature: string,
-        readonly location: Location,
+        readonly location: {station: string, district: string, referencePoint?: string},
         readonly postDate: Date,
         readonly media: Media[],
         private upvotes: number
     ){}
 
-    static create (id: string, title: string, description: string, signature: string, location: Location, postDate: string, media: Media[]){
-        return new Report(id, title, description, signature, location, new Date(postDate), media, 0)
+    static create (id: string, title: string, description: string, signature: string, location: {station: string, district: string, referencePoint?: string}, media: Media[]){
+        return new Report(id, title, description, signature, location, new Date(), media, 0)
     }
 
     getUpvotes (){
