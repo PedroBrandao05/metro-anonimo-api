@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { Media, Upvote } from "../../../domain/entities/Report";
 
 const ReportSchema = new Schema({
     id: {
@@ -6,7 +7,7 @@ const ReportSchema = new Schema({
         unique: true,
         required: true
     },
-    signature: {
+    userId: {
         type: String,
         unique: true,
         required: true
@@ -38,14 +39,14 @@ const ReportSchema = new Schema({
         required: true
     },
     media: {
-        type: Array<{url: string}>,
+        type: Array<Media>,
         required: true,
         default: []
     },
     upvotes: {
-        type: Number,
+        type: Array<Upvote>,
         required: true,
-        default: 0
+        default: []
     }
 })
 

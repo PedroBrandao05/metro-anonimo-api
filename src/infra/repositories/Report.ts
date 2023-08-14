@@ -9,14 +9,16 @@ import { ReportMongoDBModel } from "../database/models/Report";
 export default class ReportRepository implements IReportRepository {
 
     private toModel(data: any): Report {
-        return Report.create(
+        const report = Report.create(
             data.id,
             data.title,
             data.description,
-            data.signature,
+            data.userId,
             data.location,
             data.media
         )
+        report.setUpvotes(data.upvotes)
+        return report
     }
 
     async save(report: Report): Promise<void> {
@@ -25,6 +27,7 @@ export default class ReportRepository implements IReportRepository {
 
     async getAll(): Promise<Report[]> {
         const reports = await ReportMongoDBModel.find()
+        if (!reports.length) return []
         return reports.map((report) => this.toModel(report))
     }
 
@@ -34,8 +37,15 @@ export default class ReportRepository implements IReportRepository {
         return this.toModel(report)
     }
 
+    async getByUser(userId: string): Promise<Report[]> {
+        const reports = await ReportMongoDBModel.find({userId: userId})
+        if (!reports.length) return []
+        return reports.map((report) => this.toModel(report))
+    }
+
     async getByStation(station: string): Promise<Report[]> {
         const reports = await ReportMongoDBModel.find({location: {station: station}})
+        if (!reports.length) return []
         return reports.map((report) => this.toModel(report))
     }
 

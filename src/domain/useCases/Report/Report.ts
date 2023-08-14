@@ -9,15 +9,17 @@ export namespace ReportServiceDTO {
         station: string,
         district: string,
         referencePoint: string,
+        userId: string
     }
 
-    export type SaveReportOutput = {
-        token: string,
-        signature: string
-    }
-
-    export type GetReportsInput = {
-        token: string
+    export type UpdateReportInput = {
+        userId: string,
+        reportId: string,
+        title: string,
+        description: string,
+        station: string,
+        district: string,
+        referencePoint: string,
     }
 
     export type GetReportsOutput = {
@@ -26,21 +28,21 @@ export namespace ReportServiceDTO {
         station: string,
         district: string,
         referencePoint: string,
-        signature: string,
+        userVoted: boolean,
+        upvotes: number,
         postDate: string,
         media: Media[]
     }[]
 
-    export type AddUpvoteInput = {
-        token: string
+    export type GetReportsByStationInput = {
+        station: string
     }
 
-    export type RemoveUpvoteInput = {
-        token: string
+    export type GetReportsByUserInput = {
+        userId: string
     }
 
-    export type UpdateReportInput = {
-        title: string,
-        description: string,
+    export type DeleteReportInput = {
+        reportId: string
     }
 }
