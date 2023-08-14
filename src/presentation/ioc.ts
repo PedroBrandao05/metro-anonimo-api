@@ -8,11 +8,14 @@ import ILocationRepository from '../domain/repositories/Location'
 import LocationRepository from '../infra/repositories/Location'
 import ITokenGenerator from '../application/contracts/TokenGenerator'
 import TokenGenerator from '../infra/utils/TokenGenerator'
+import IUserRepository from '../domain/repositories/User'
+import UserRepository from '../infra/repositories/User'
 
 const IocContainer = new Container()
 IocContainer.bind<IUUIDGenerator>('IUUIDGenerator').to(UUIDGenerator)
 IocContainer.bind<ITokenGenerator>('ITokenGenerator').to(TokenGenerator)
 IocContainer.bind<IReportRepository>('IReportRepository').to(ReportRepository)
 IocContainer.bind<ILocationRepository>('ILocationRepository').to(LocationRepository)
+IocContainer.bind<IUserRepository>('IUserRepository').to(UserRepository)
 
 export default IocContainer
