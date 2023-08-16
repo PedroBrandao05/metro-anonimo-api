@@ -1,5 +1,5 @@
 export type TokenPayload = {
-    signature: string
+    userId: string
 }
 
 export default interface ITokenGenerator {

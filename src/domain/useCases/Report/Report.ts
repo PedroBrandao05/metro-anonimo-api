@@ -12,6 +12,10 @@ export namespace ReportServiceDTO {
         userId: string
     }
 
+    export type SaveReportMedia = {
+        urls: Media[]
+    }
+
     export type UpdateReportInput = {
         userId: string,
         reportId: string,
@@ -20,6 +24,11 @@ export namespace ReportServiceDTO {
         station: string,
         district: string,
         referencePoint: string,
+    }
+
+    export type UpvoteReportInput = {
+        userId: string,
+        reportId: string
     }
 
     export type GetReportsOutput = {

@@ -1,5 +1,5 @@
 import { LocationServiceDTO } from "./Location";
 
-export interface IGetLocationService {
+export default interface IGetLocationsService {
     execute (): Promise<LocationServiceDTO.GetLocationsOutput>
 }

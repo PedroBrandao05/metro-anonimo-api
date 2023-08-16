@@ -11,7 +11,7 @@ export namespace LocationServiceDTO {
         district: string
     }[]
 
-    export type DeleteLocationsInput = {
+    export type DeleteLocationInput = {
         locationId: string
     }
 }

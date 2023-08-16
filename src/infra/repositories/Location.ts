@@ -21,6 +21,12 @@ export default class LocationRepository implements ILocationRepository {
         return locations.map((location) => this.toModel(location))
     }
 
+    async getByStation(station: string): Promise<Location | undefined> {
+        const location = await LocationMongoDBModel.findOne({station})
+        if (!location) return
+        return this.toModel(location)
+    }
+
     async save(location: Location): Promise<void> {
         await LocationMongoDBModel.create(location)
     }
