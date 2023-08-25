@@ -1,7 +1,10 @@
 import User from "../../domain/entities/User";
 import IUserRepository from "../../domain/repositories/User";
 import { UserMongoDBModel } from "../database/models/User";
+import { injectable } from "inversify";
+import 'reflect-metadata'
 
+@injectable()
 export default class UserRepository implements IUserRepository {
     async save(user: User): Promise<void> {
         await UserMongoDBModel.create(user)

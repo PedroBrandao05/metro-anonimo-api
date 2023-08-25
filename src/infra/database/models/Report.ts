@@ -9,7 +9,6 @@ const ReportSchema = new Schema({
     },
     userId: {
         type: String,
-        unique: true,
         required: true
     },
     title: {

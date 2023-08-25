@@ -21,6 +21,12 @@ export default class LocationRepository implements ILocationRepository {
         return locations.map((location) => this.toModel(location))
     }
 
+    async getById(id: string): Promise<Location | undefined> {
+        const location = await LocationMongoDBModel.findOne({id})
+        if (!location) return
+        return this.toModel(location)
+    }
+
     async getByStation(station: string): Promise<Location | undefined> {
         const location = await LocationMongoDBModel.findOne({station})
         if (!location) return
@@ -32,6 +38,7 @@ export default class LocationRepository implements ILocationRepository {
     }
 
     async delete(id: string): Promise<void> {
-        await LocationMongoDBModel.findByIdAndDelete(id)
+        const location = await LocationMongoDBModel.findOne({id})
+        await LocationMongoDBModel.findByIdAndDelete(location?._id)
     }
 }

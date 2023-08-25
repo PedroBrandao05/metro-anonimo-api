@@ -9,7 +9,7 @@ import Report from "../../../domain/entities/Report";
 
 
 @injectable()
-export default class SaveReportService implements IUpdateReportService, Usecase {
+export default class UpdateReportService implements IUpdateReportService, Usecase {
     constructor (
         @inject('IReportRepository') private readonly reportRepository: IReportRepository,
     ){}

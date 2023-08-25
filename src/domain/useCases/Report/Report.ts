@@ -31,12 +31,18 @@ export namespace ReportServiceDTO {
         reportId: string
     }
 
+    export type GetReportsInput = {
+        token: string
+    }
+
     export type GetReportsOutput = {
         title: string,
         description: string,
-        station: string,
-        district: string,
-        referencePoint: string,
+        location: {
+            station: string,
+            district: string,
+            referencePoint?: string,
+        }
         userVoted: boolean,
         upvotes: number,
         postDate: string,
@@ -45,13 +51,15 @@ export namespace ReportServiceDTO {
 
     export type GetReportsByStationInput = {
         station: string
+        token: string
     }
 
     export type GetReportsByUserInput = {
-        userId: string
+        token: string
     }
 
     export type DeleteReportInput = {
         reportId: string
+        userId: string
     }
 }

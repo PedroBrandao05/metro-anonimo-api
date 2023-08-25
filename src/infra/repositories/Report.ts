@@ -32,7 +32,7 @@ export default class ReportRepository implements IReportRepository {
     }
 
     async getById(id: string): Promise<Report | undefined> {
-        const report = await ReportMongoDBModel.findById(id)
+        const report = await ReportMongoDBModel.findOne({id})
         if (!report) return
         return this.toModel(report)
     }
@@ -50,10 +50,12 @@ export default class ReportRepository implements IReportRepository {
     }
 
     async delete(id: string): Promise<void> {
-        await ReportMongoDBModel.findByIdAndDelete(id)
+        const report = await ReportMongoDBModel.findOne({id})
+        await ReportMongoDBModel.findByIdAndDelete(report?._id)
     }
 
     async update(report: Report): Promise<void> {
-        await ReportMongoDBModel.findByIdAndUpdate(report)
+        const founded = await ReportMongoDBModel.findOne({id: report.id})
+        await ReportMongoDBModel.findByIdAndUpdate({report, _id: founded?._id})
     }
 }
