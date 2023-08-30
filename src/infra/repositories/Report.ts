@@ -44,7 +44,7 @@ export default class ReportRepository implements IReportRepository {
     }
 
     async getByStation(station: string): Promise<Report[]> {
-        const reports = await ReportMongoDBModel.find({location: {station: station}})
+        const reports = await ReportMongoDBModel.find({'location.station': station})
         if (!reports.length) return []
         return reports.map((report) => this.toModel(report))
     }

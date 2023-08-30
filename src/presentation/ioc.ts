@@ -41,6 +41,9 @@ import SaveReportMediaService from '../application/useCases/Report/SaveReportMed
 import IRemoveReportMediaService from '../domain/useCases/Report/RemoveReportMediaService'
 import RemoveReportMediaService from '../application/useCases/Report/RemoveReportMediaService'
 import UsecaseFactory from '../infra/factory/UsecaseFactory'
+import HTTPController from '../infra/http/HTTPController'
+import IHTTPServer from '../application/contracts/HTTPServer'
+import ExpressAdapter from '../infra/http/ExpressAdapter'
 
 const IocContainer = new Container()
 IocContainer.bind<IUUIDGenerator>('IUUIDGenerator').to(UUIDGenerator)
@@ -64,5 +67,7 @@ IocContainer.bind<IUpvoteReportService>('IUpvoteReportService').to(UpvoteReportS
 IocContainer.bind<ISaveReportMediaService>('ISaveReportMediaService').to(SaveReportMediaService)
 IocContainer.bind<IRemoveReportMediaService>('IRemoveReportMediaService').to(RemoveReportMediaService)
 IocContainer.bind<UsecaseFactory>('UsecaseFactory').to(UsecaseFactory)
+IocContainer.bind<HTTPController>('HTTPController').to(HTTPController)
+IocContainer.bind<IHTTPServer>('IHTTPServer').to(ExpressAdapter)
 
 export default IocContainer

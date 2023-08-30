@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ApplicationError from "../../domain/errors/ApplicationError";
-import IocContainer from "../../presentation/ioc";
-import ITokenGenerator from "../contracts/TokenGenerator";
+import TokenGenerator from "../../infra/utils/TokenGenerator";
 import Usecase from "../contracts/Usecase";
 
-const tokenGenerator = IocContainer.get<ITokenGenerator>('ITokenGenerator')
+const tokenGenerator = new TokenGenerator()
 
 export default class ValidateToken implements Usecase {
     constructor(

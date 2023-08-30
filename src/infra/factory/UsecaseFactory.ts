@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { inject } from 'inversify'
+import { inject, injectable } from 'inversify'
 import ISaveUserService from '../../domain/useCases/Auth/SaveUserService'
 import ISaveLocationService from '../../domain/useCases/Location/SaveLocationService'
 import IGetLocationsService from '../../domain/useCases/Location/GetLocationsService'
@@ -15,6 +15,7 @@ import ISaveReportMediaService from '../../domain/useCases/Report/SaveReportMedi
 import IRemoveReportMediaService from '../../domain/useCases/Report/RemoveReportMediaService'
 import ValidateToken from '../../application/decorator/ValidateToken'
 
+@injectable()
 export default class UsecaseFactory {
     constructor (
         @inject('ISaveUserService') private readonly SaveUserService : ISaveUserService,

@@ -31,7 +31,7 @@ export default class GetReportsByStationService implements IGetReportsByStationS
         const station = input.station.toLowerCase()
 
         const reports = await this.reportRepository.getByStation(station)
-        
+        console.log(reports)
         return reports.map(report => this.toModel(report, session.userId))
     }
 }

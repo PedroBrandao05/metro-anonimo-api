@@ -16,7 +16,7 @@ export default class SaveReportService implements ISaveReportService, Usecase {
 
     async execute(input: ReportServiceDTO.SaveReportInput): Promise<ReportServiceDTO.SaveReportOutput> {
         const reportId = this.uuidGenerator.generate()
-        const report = Report.create(reportId, input.title, input.description, input.userId, {station: input.station, district: input.description, referencePoint: input.referencePoint}, [])
+        const report = Report.create(reportId, input.title, input.description, input.userId, {station: input.station.toLowerCase(), district: input.description.toLowerCase(), referencePoint: input.referencePoint}, [])
         await this.reportRepository.save(report)
         return {reportId}
     }

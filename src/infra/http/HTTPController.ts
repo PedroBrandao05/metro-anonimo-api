@@ -7,12 +7,11 @@ import IMediaHandler from '../../application/contracts/MediaHandler'
 import UsecaseFactory from '../factory/UsecaseFactory'
 import findFilesInDirectory from '../../application/utils/findFilesInDirectory'
 
-@injectable()
 export default class HTTPController {
     constructor (
-        @inject('IHTTPServer') private readonly httpServer: IHTTPServer,
-        @inject('IMediaHandler') private readonly mediaHandler: IMediaHandler,
-        @inject('UsecaseFactory') private readonly usecaseFactory: UsecaseFactory
+        private readonly httpServer: IHTTPServer,
+        private readonly mediaHandler: IMediaHandler,
+        private readonly usecaseFactory: UsecaseFactory
     ){
         httpServer.on("post", "/signup", async (params: any, body: any, headers: any) => {
             const SaveUser = usecaseFactory.createSaveUser()
@@ -73,6 +72,21 @@ export default class HTTPController {
             const token = headers.authorization
             const GetReports = usecaseFactory.createGetReports()
             const output = await GetReports.execute({token})
+            return {code: 200, response: output}
+        })
+
+        httpServer.on("post", "/get-reports-by-station", async (params: any, body: any, headers: any) => {
+            const token = headers.authorization
+            body.token = token
+            const GetReportsByStation = usecaseFactory.createGetReportsByStation()
+            const output = await GetReportsByStation.execute(body)
+            return {code: 200, response: output}
+        })
+
+        httpServer.on("get", "/get-reports-by-user", async (params: any, body: any, headers: any) => {
+            const token = headers.authorization
+            const GetReportsByStation = usecaseFactory.createGetReportsByStation()
+            const output = await GetReportsByStation.execute({token})
             return {code: 200, response: output}
         })
 
