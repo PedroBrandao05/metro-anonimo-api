@@ -12,8 +12,18 @@ export namespace ReportServiceDTO {
         userId: string
     }
 
-    export type SaveReportMedia = {
-        urls: Media[]
+    export type SaveReportOutput = {
+        reportId: string
+    }
+
+    export type SaveReportMediaInput = {
+        id: string
+        media: Media[]
+    }
+
+    export type RemoveReportMediaInput = {
+        id: string
+        media: Media[]
     }
 
     export type UpdateReportInput = {

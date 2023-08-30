@@ -32,10 +32,21 @@ import IDeleteReportService from '../domain/useCases/Report/DeleteReportService'
 import DeleteReportService from '../application/useCases/Report/DeleteReportService'
 import IUpvoteReportService from '../domain/useCases/Report/UpvoteReportService'
 import UpvoteReportService from '../application/useCases/Report/UpvoteReportService'
+import IMediaHandler from '../application/contracts/MediaHandler'
+import Multer from '../infra/mediaHandler/Multer'
+import IStorage from '../application/contracts/Storage'
+import S3Storage from '../infra/storage/S3'
+import ISaveReportMediaService from '../domain/useCases/Report/SaveReportMediaService'
+import SaveReportMediaService from '../application/useCases/Report/SaveReportMediaService'
+import IRemoveReportMediaService from '../domain/useCases/Report/RemoveReportMediaService'
+import RemoveReportMediaService from '../application/useCases/Report/RemoveReportMediaService'
+import UsecaseFactory from '../infra/factory/UsecaseFactory'
 
 const IocContainer = new Container()
 IocContainer.bind<IUUIDGenerator>('IUUIDGenerator').to(UUIDGenerator)
 IocContainer.bind<ITokenGenerator>('ITokenGenerator').to(TokenGenerator)
+IocContainer.bind<IMediaHandler>('IMediaHandler').to(Multer)
+IocContainer.bind<IStorage>('IStorage').to(S3Storage)
 IocContainer.bind<IReportRepository>('IReportRepository').to(ReportRepository)
 IocContainer.bind<ILocationRepository>('ILocationRepository').to(LocationRepository)
 IocContainer.bind<IUserRepository>('IUserRepository').to(UserRepository)
@@ -50,5 +61,8 @@ IocContainer.bind<IGetReportsByStationService>('IGetReportsByStationService').to
 IocContainer.bind<IGetReportsByUserService>('IGetReportsByUserService').to(GetReportsByUserService)
 IocContainer.bind<IDeleteReportService>('IDeleteReportService').to(DeleteReportService)
 IocContainer.bind<IUpvoteReportService>('IUpvoteReportService').to(UpvoteReportService)
+IocContainer.bind<ISaveReportMediaService>('ISaveReportMediaService').to(SaveReportMediaService)
+IocContainer.bind<IRemoveReportMediaService>('IRemoveReportMediaService').to(RemoveReportMediaService)
+IocContainer.bind<UsecaseFactory>('UsecaseFactory').to(UsecaseFactory)
 
 export default IocContainer

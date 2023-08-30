@@ -1,21 +1,33 @@
-import { injectable } from "inversify";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'reflect-metadata'
-import multer, { Multer } from 'multer'
-import MulterConfig from "./MulterConfig";
-import { IMediaHandler } from "../../application/contracts/MediaHandler";
-import { Request, Response } from "express";
-import ApplicationError from "../../domain/errors/ApplicationError";
+import { injectable } from 'inversify'
+import multer from 'multer'
+import path from 'path'
+import IMediaHandler from '../../application/contracts/MediaHandler'
+
+const tmpFolder = path.resolve(__dirname, '..', '..', '..', 'temp')
+
+export const multerConfig = {
+    directory: tmpFolder,
+    storage: multer.diskStorage({
+        destination: tmpFolder,
+        filename(req, file, callback) {
+            const fileHash = req.params.id 
+            const filename = `${fileHash}-${file.originalname}`
+
+            return callback(null, filename)
+        },
+    }),
+}
 
 @injectable()
-export default class MediaHandler implements IMediaHandler {
-    private multer: Multer
+export default class Multer implements IMediaHandler {
+    upload: any 
+    
+    constructor()
+    {this.upload = multer(multerConfig)}
 
-    constructor ()
-    { this.multer = multer(MulterConfig) }
-
-    async upload(request: Request, res: Response): Promise<void> {
-      this.multer.array('media')(request, res, err => {
-        if (err) throw new ApplicationError("Failed to upload file", 400)
-      })
+    save(method: string, fieldName: string) {
+       return this.upload[method](fieldName)
     }
 }

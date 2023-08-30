@@ -1,5 +1,4 @@
-import { Request, Response } from 'express'
-
-export interface IMediaHandler {
-  upload (request: Request, res: Response): Promise<void>
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export default interface IMediaHandler{
+  save(method: string, fieldName: string): any
 }
